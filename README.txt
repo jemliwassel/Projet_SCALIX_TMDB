@@ -1,4 +1,4 @@
-# Projet Scala pour l'API TMDB
+#Projet Scala pour l'API TMDB
 
 Ce projet Scala a été créé pour interagir avec l'API TMDB (The Movie Database) afin de rechercher des informations sur les acteurs, les films et les réalisateurs.
 
