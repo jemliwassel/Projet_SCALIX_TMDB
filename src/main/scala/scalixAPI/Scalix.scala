@@ -15,12 +15,13 @@ object Scalix extends App{
   implicit val formats: Formats = DefaultFormats
   import Config.api_key
   private def buildURL(route: String, query: String): String = {
-    s"https://api.themoviedb.org/3/$route?api_key=$api_key&query=$query"
+    s"https://api.themoviedb.org/3$route?api_key=$api_key&query=$query"
   }
 
   def findActorId(name: String, surname: String): Option[Int] = {
-    val query = URLEncoder.encode(s"$name%20$surname", "UTF-8")
+    val query = URLEncoder.encode(s"$name $surname", "UTF-8")
     val response = Source.fromURL(buildURL("/search/person", query))
+    println(buildURL("/search/person", query))
     val paginatedResponse = parse(response.mkString).camelizeKeys.extract[PaginatedResponse[Actor]]
     paginatedResponse.results.headOption.map(_.id)
   }
