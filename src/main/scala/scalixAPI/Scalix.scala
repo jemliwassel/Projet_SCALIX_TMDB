@@ -21,13 +21,12 @@ object Scalix extends App{
   def findActorId(name: String, surname: String): Option[Int] = {
     val query = URLEncoder.encode(s"$name $surname", "UTF-8")
     val response = Source.fromURL(buildURL("/search/person", query))
-    println(buildURL("/search/person", query))
     val paginatedResponse = parse(response.mkString).camelizeKeys.extract[PaginatedResponse[Actor]]
     paginatedResponse.results.headOption.map(_.id)
   }
 
   def findActorMovies(actorId: Option[Int]): Set[(Int, String)] = {
-    val response = Source.fromURL(buildURL(s"/person/$actorId/movie_credits", ""))
+    val response = Source.fromURL(buildURL(s"/person/${actorId.get}/movie_credits", ""))
     val responseMovies = parse(response.mkString).camelizeKeys.extract[ActorMoviesResponse]
     responseMovies.cast.map(movieCredits => (movieCredits.id, movieCredits.originalTitle)).toSet
   }
