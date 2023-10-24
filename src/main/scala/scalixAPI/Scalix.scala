@@ -9,10 +9,13 @@ import scalixModel.{PaginatedResponse, Actor, ActorMoviesResponse, MovieDirector
 
 import java.net.URLEncoder
 
+object Config:
+  val api_key = "1423dc6a84212684621cdc8eba17af54"
 object Scalix extends App{
   implicit val formats: Formats = DefaultFormats
+  import Config.api_key
   private def buildURL(route: String, query: String): String = {
-    s"https://api.themoviedb.org/3/$route?api_key=1423dc6a84212684621cdc8eba17af54&query=$query"
+    s"https://api.themoviedb.org/3/$route?api_key=$api_key&query=$query"
   }
 
   def findActorId(name: String, surname: String): Option[Int] = {
